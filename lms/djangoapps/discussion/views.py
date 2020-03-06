@@ -241,8 +241,16 @@ def inline_discussion(request, course_key, discussion_id):
         'course_settings': make_course_settings(course, request.user, False)
     })
 
+# [COLARAZ]
+# If a user enrolls in a course and then admin removes that course from his organization
+# the user will be able to view and pursue the course with URLs leading to that course
+# in that case we have to check everywhere about the user's authority.
+# NOTE: IN REGULAR FLOW ITS NOT REQUIRED
+
+from util.views import ensure_valid_course_key
 
 @login_required
+@ensure_valid_course_key
 @use_bulk_ops
 def forum_form_discussion(request, course_key):
     """

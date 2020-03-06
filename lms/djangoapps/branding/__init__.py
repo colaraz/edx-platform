@@ -26,9 +26,15 @@ def get_visible_courses(org=None, filter_=None):
     """
     # Import is placed here to avoid model import at project startup.
     from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
-
     courses = []
     current_site_orgs = configuration_helpers.get_current_site_orgs()
+
+    # [COLARAZ]
+    # from organizations.models import OrganizationCourse
+    # if settings.FEATURES.get('ORGANIZATIONS_APP', False):
+    #        if current_site_orgs and OrganizationCourse.objects.filter(course_id=str(course_overview),
+    #                                                               organization__name__in=org_whitelist,
+    #                                                               active=True):
 
     if org:
         # Check the current site's orgs to make sure the org's courses should be displayed
