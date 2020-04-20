@@ -41,27 +41,30 @@ def manage_user_roles(response, user=None, *args, **kwargs):
 
         return
 
-def update_user_roles(user, roles):
-    for role in roles:
-        if role.get('orgs') and role.get('role'):
-            update_roles(user, role.get('role'), role.get('orgs'))
-
 
 def update_course_creator_group(user, is_course_creator):
-
+    """
+    Updates course creator access of Users
+    """
     params = {'admin': user}
     params['state'] = CourseCreator.GRANTED if is_course_creator else CourseCreator.DENIED
 
     instance, created = CourseCreator.objects.update_or_create(user=user, defaults=params)
 
-
-def update_roles(user, role, orgs):
-    exisitng_roles = CourseAccessRole.objects.filter(user_id=user.id, role=role)
-    for role in exisitng_roles:
-        if role.org not in orgs:
-            role.delete()
-        else:
-            orgs.remove(role.org)
-    for org in orgs:
-        CourseAccessRole.objects.create(user_id=user.id, role=role, org=org)
-
+def update_user_roles(user, access_roles):
+    """
+    Traverses through all the roles and updates them, depending upon the data
+    recieved from IdP
+    """
+    for access_role in access_roles:
+        role = access_role.get('role')
+        orgs = access_role.get('orgs')
+        if orgs and role:
+            exisitng_roles = CourseAccessRole.objects.filter(user_id=user.id, role=role)
+            for role in exisitng_roles:
+                if role.org not in orgs:
+                    role.delete()
+                else:
+                    orgs.remove(role.org)
+            for org in orgs:
+                CourseAccessRole.objects.create(user_id=user.id, role=role, org=org)
