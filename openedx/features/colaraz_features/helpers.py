@@ -9,6 +9,7 @@ from organizations.models import Organization
 
 from openedx.core.djangoapps.theming.models import SiteTheme
 from openedx.core.djangoapps.site_configuration.models import SiteConfiguration
+from student.models import CourseAccessRole
 
 
 # Tuple containing information for lms and studio
@@ -149,3 +150,10 @@ def create_site_configurations(sites, organization, university_name, platform_na
         ) for site in sites
     )
     return Pair(*site_configurations)
+
+
+def get_user_orgs_list(user, role):
+    """
+    Use to get organizations aganinst a specific role of a user
+    """
+    return CourseAccessRole.objects.filter(user_id=user.id, role=role).values_list('org', flat=True)

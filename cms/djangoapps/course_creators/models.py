@@ -22,6 +22,10 @@ class CourseCreator(models.Model):
     """
     Creates the database table model.
     """
+
+    class Meta(object):
+        app_label = "course_creators"
+
     UNREQUESTED = 'unrequested'
     PENDING = 'pending'
     GRANTED = 'granted'

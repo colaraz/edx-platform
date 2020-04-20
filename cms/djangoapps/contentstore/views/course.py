@@ -26,8 +26,10 @@ from opaque_keys.edx.keys import CourseKey
 from opaque_keys.edx.locator import BlockUsageLocator
 from openedx.core.djangoapps.content.course_overviews.models import CourseOverview
 from openedx.core.djangoapps.waffle_utils import WaffleSwitchNamespace
+from openedx.features.colaraz_features.helpers import get_user_orgs_list
 from openedx.features.course_experience.waffle import waffle as course_experience_waffle
 from openedx.features.course_experience.waffle import ENABLE_COURSE_ABOUT_SIDEBAR_HTML
+
 from six import text_type
 
 from contentstore.course_group_config import (
@@ -859,14 +861,14 @@ def create_new_course(user, org, number, run, fields):
     """
     # [COLARAZ_CUSTOM] 
     # Restrict user from creating courses with non-authorized organizations
-    site_orgs = configuration_helpers.get_current_site_orgs()
+    user_orgs = get_user_orgs_list(user, role='course_creator_group')
     org_data = get_organization_by_short_name(org)
-    if site_orgs and org_data and org not in site_orgs and not user.is_superuser:
+    if user_orgs and org_data and org not in user_orgs and not user.is_superuser:
         org_data = None
     if not org_data and organizations_enabled():
         raise ValidationError(_('You must link this course to an organization in order to continue. Organization '
                                 'you selected does not exist in the system, '
-                                'you can use any of the following organizations: {}'.format(site_orgs)))
+                                'you can use any of the following organizations: {}'.format(user_orgs)))
     store_for_new_course = modulestore().default_modulestore.get_modulestore_type()
     new_course = create_new_course_in_store(store_for_new_course, user, org, number, run, fields)
     add_organization_course(org_data, new_course.id)
