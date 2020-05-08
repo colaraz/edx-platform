@@ -223,11 +223,11 @@ def get_course_enrollments(user, org_whitelist, org_blacklist):
                 enrollment.course_id
             )
             continue
-    
+
         # [COLARAZ_CUSTOM]
-        # To restrict users from viewing unallowed courses. 
+        # To restrict users from viewing unallowed courses.
         if settings.FEATURES.get('ORGANIZATIONS_APP', False):
-            if org_whitelist and OrganizationCourse.objects.filter(course_id=str(course_overview), 
+            if org_whitelist and OrganizationCourse.objects.filter(course_id=str(course_overview),
                                                                    organization__short_name__in=org_whitelist,
                                                                    active=True):
                 yield enrollment
@@ -857,7 +857,7 @@ def student_dashboard(request):
         'denied_banner': denied_banner,
         'billing_email': settings.PAYMENT_SUPPORT_EMAIL,
         'user': user,
-        'logout_url': reverse('auth_logout_redirect'),
+        'logout_url': reverse('colaraz_features:auth_logout_redirect'),
         'platform_name': platform_name,
         'enrolled_courses_either_paid': enrolled_courses_either_paid,
         'provider_states': [],

@@ -1132,6 +1132,15 @@ COLARAZ_BLOCKED_FULL_PATHS = ENV_TOKENS.get(
     'COLARAZ_BLOCKED_FULL_PATHS',
     COLARAZ_BLOCKED_FULL_PATHS
 )
+COLARAZ_PREVIEW_DOMAIN_KEY = ENV_TOKENS.get(
+    'COLARAZ_PREVIEW_DOMAIN_KEY',
+    COLARAZ_PREVIEW_DOMAIN_KEY
+)
+
+# Custom urls in navbar
+COLARAZ_NAVIGATION_URLS = ENV_TOKENS.get(
+    'COLARAZ_NAVIGATION_URLS'
+)
 
 ############################### Plugin Settings ###############################
 
