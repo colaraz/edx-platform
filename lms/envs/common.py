@@ -609,7 +609,7 @@ CONTEXT_PROCESSORS = [
     'mobile_api.context_processor.is_from_mobile_app',
 
     # edly context processor to apply dynamic theming
-    'edly_panel_app.context_processor.dynamic_theming_context'
+    #'edly_panel_app.context_processor.dynamic_theming_context'
 ]
 
 # Django templating
@@ -1332,7 +1332,7 @@ MIDDLEWARE_CLASSES = [
     # This must be last
     'openedx.core.djangoapps.site_configuration.middleware.SessionCookieDomainOverrideMiddleware',
 
-    'edly_panel_app.middleware.EdlyUserActivityMiddleware',
+    #'edly_panel_app.middleware.EdlyUserActivityMiddleware',
 ]
 
 # Edly Configuration
@@ -2326,7 +2326,7 @@ INSTALLED_APPS = [
     # edx-drf-extensions
     'csrf.apps.CsrfAppConfig',  # Enables frontend apps to retrieve CSRF tokens.
 
-    'edly_panel_app',
+    #'edly_panel_app',
 
     'openedx.features.colaraz_features',
 ]
@@ -3518,6 +3518,7 @@ USER_STATE_BATCH_SIZE = 5000
 ############## Settings for colaraz_features app ##############
 # [COLARAZ_CUSTOM]
 COLARAZ_PREVIEW_DOMAIN_KEY = 'preview'
+COLARAZ_SUB_DOMAIN = 'colaraz.com'
 
 # It will restrict anonymous users from viewing courses on index, courses and course about pages
 SHOW_COURSES_TO_ANONYMOUS_USERS = False
