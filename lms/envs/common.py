@@ -981,7 +981,7 @@ STATICFILES_DIRS = [
 ]
 
 FAVICON_PATH = 'images/favicon.ico'
-DEFAULT_COURSE_ABOUT_IMAGE_URL = 'images/pencils.jpg'
+DEFAULT_COURSE_ABOUT_IMAGE_URL = '/colaraz/images/course_image.png'
 
 # User-uploaded content
 MEDIA_ROOT = '/edx/var/edxapp/media/'
@@ -3520,6 +3520,8 @@ USER_STATE_BATCH_SIZE = 5000
 COLARAZ_DOMAIN_PROTOCOL = 'http'
 COLARAZ_PREVIEW_DOMAIN_KEY = 'preview'
 COLARAZ_SUB_DOMAIN = 'colaraz.com'
+COLARAZ_NOTIFICATIONS = {}
+COLARAZ_JOB_ALERTS = {}
 
 # It will restrict anonymous users from viewing courses on index, courses and course about pages
 SHOW_COURSES_TO_ANONYMOUS_USERS = False
@@ -3529,6 +3531,7 @@ COLARAZ_ENABLE_AUTH_MIDDLEWARE = False
 COLARAZ_AUTH_PROVIDER_BACKEND_NAME = None
 COLARAZ_BLOCKED_SUB_PATHS = ['/courses']
 COLARAZ_BLOCKED_FULL_PATHS = ['/', '/login']
+COLARAZ_ALLOWED_SUB_PATHS = ['/api/commerce']
 
 ############## Plugin Django Apps #########################
 

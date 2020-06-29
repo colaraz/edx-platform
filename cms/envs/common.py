@@ -1571,12 +1571,15 @@ COMPLETION_VIDEO_COMPLETE_PERCENTAGE = 0.95
 COLARAZ_DOMAIN_PROTOCOL = 'http'
 COLARAZ_PREVIEW_DOMAIN_KEY = 'preview'
 COLARAZ_SUB_DOMAIN = 'colaraz.com'
+COLARAZ_NOTIFICATIONS = {}
+COLARAZ_JOB_ALERTS = {}
 
 # These variables are used in ColarazAuthenticationMiddleware
 COLARAZ_ENABLE_AUTH_MIDDLEWARE = False
 COLARAZ_AUTH_PROVIDER_BACKEND_NAME = None
 COLARAZ_BLOCKED_SUB_PATHS = ['/course', '/home']
 COLARAZ_BLOCKED_FULL_PATHS = ['/']
+COLARAZ_ALLOWED_SUB_PATHS = ['/api/commerce']
 
 ############## Installed Django Apps #########################
 
