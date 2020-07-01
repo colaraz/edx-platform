@@ -18,12 +18,12 @@
                 <ul class="post-info-list">
                     <li>By <strong>
                     <% if (typeof username !== 'undefined') { %>
-                    <a href="<%- user_url %>" class="username"><%- username %></a>
-                        <% if (typeof is_community_ta !== 'undefined') { %>
-                        <span class="user-label-community-ta"><%- gettext("(Community TA)") %></span>
-                        <% } else if (typeof is_staff !== 'undefined') { %>
-                        <span class="user-label-staff"><%- gettext("(Staff)") %></span>
-                        <% } %>
+                        <a href="<%- user_url %>" class="username"><%- username %></a>
+                            <% if (typeof is_community_ta !== 'undefined') { %>
+                                <span class="user-label-community-ta"><%- gettext("(Community TA)") %></span>
+                            <% } else if (typeof is_staff !== 'undefined') { %>
+                                <span class="user-label-staff"><%- gettext("(Staff)") %></span>
+                            <% } %>
                     <% } else { %>
                         <%- gettext('anonymous') %>
                     <% } %>
