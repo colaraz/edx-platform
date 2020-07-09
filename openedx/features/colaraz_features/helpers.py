@@ -25,7 +25,7 @@ from openedx.features.colaraz_features.constants import (
     ROLES_FOR_LMS_ADMIN
 )
 from organizations.models import Organization
-from student.models import CourseAccessRole
+from student.models import CourseAccessRole, UserProfile
 from student.roles import CourseCreatorRole, OrgRoleManagerRole
 from xmodule.modulestore.django import modulestore
 
@@ -475,3 +475,26 @@ def get_course_access_role_display_name(course_access_role):
     role_name = course_access_role.role if course_access_role.course_id \
         or course_access_role.role == CourseCreatorRole.ROLE else 'org_{}'.format(course_access_role.role)
     return COURSE_ACCESS_ROLES_DISPLAY_MAPPING.get(role_name)
+
+def add_user_fullname_in_threads(threads):
+    if not isinstance(threads, list):
+        tmp_list = []
+        tmp_list.append(threads)
+        threads = tmp_list
+        
+    name_map = {}
+    thread_usernames = [thread['username'] for thread in threads if thread.has_key('username')]
+    profile_usernames = UserProfile.objects.filter(user__username__in=thread_usernames)\
+       .values_list('user__username', 'name')
+    for profile_username in profile_usernames:
+        name_map[profile_username[0]] = profile_username[1]
+
+    for thread in threads:
+        if thread.has_key('username'):
+            thread['fullname'] = name_map[thread['username']] or 'Anonymous'
+        if len(thread.get('children', [])) > 0:
+            thread['children'] = add_user_fullname_in_threads(thread.get('children'))
+        if thread.get('endorsement'):
+            add_user_fullname_in_threads(thread.get('endorsement'))
+
+    return threads
