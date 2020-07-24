@@ -9,6 +9,7 @@ from urlparse import urljoin
 
 import pytz
 from django.conf import settings
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import Http404, HttpResponseServerError
@@ -20,6 +21,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from mock import patch
 from opaque_keys import InvalidKeyError
+from opaque_keys.edx.django.models import CourseKeyField
 from opaque_keys.edx.keys import CourseKey
 from six import text_type
 from xblock.field_data import DictFieldData
