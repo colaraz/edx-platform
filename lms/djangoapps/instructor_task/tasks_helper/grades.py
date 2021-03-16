@@ -360,11 +360,11 @@ class CourseGradeReport(object):
                 course_grade,
                 assignment_info['subsection_headers'],
             )
-            grade_results.extend(subsection_grades_results)
+            grade_results.extend([grade*100 for grade in subsection_grades_results])
 
             assignment_average = self._user_assignment_average(course_grade, subsection_grades, assignment_info)
             if assignment_average is not None:
-                grade_results.append([assignment_average])
+                grade_results.append([assignment_average*100])
 
         return [course_grade.percent*100] + _flatten(grade_results)
 
@@ -383,6 +383,7 @@ class CourseGradeReport(object):
                 grade_result = u'Not Attempted'
             grade_results.append([grade_result])
             subsection_grades.append(subsection_grade)
+
         return subsection_grades, grade_results
 
     def _user_assignment_average(self, course_grade, subsection_grades, assignment_info):
